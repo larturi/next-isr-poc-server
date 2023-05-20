@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const countriesDb = require('./db/country');
+const getNextId = require( './helpers/getNextId' );
 
 const app = express();
 
@@ -39,15 +40,13 @@ app.get('/country/:nameOrId', (req, res) => {
 app.post('/country', (req, res) => {
    const { name, population, continent } = req.body;
 
-   console.log(req.body)
-
    if (!name || !population || !continent) {
       return res
          .status(400)
          .send('Name, population and continent are required');
    }
 
-   const id = countriesDb.length + 1;
+   const id = getNextId();
 
    const newCountry = {
       id,
@@ -104,39 +103,21 @@ app.get('/seed', (req, res) => {
   const newCountries = [
     {
       id: 1,
-      name: 'Brazil',
-      population: 123123,
+      name: 'Argentina',
+      population: 45817233,
       continent: 'South America',
     },
     {
       id: 2,
-      name: 'Egypt',
-      population: 104258327,
-      continent: 'Africa',
+      name: 'Brazil',
+      population: 214293922,
+      continent: 'South America',
     },
     {
       id: 3,
-      name: 'Malaysia',
-      population: 32722760,
-      continent: 'Asia',
-    },
-    {
-      id: 4,
       name: 'France',
       population: 67059887,
       continent: 'Europe',
-    },
-    {
-      id: 5,
-      name: 'Mexico',
-      population: 130222815,
-      continent: 'North America',
-    },
-    {
-      id: 6,
-      name: 'Argentina',
-      population: 45817233,
-      continent: 'South America',
     },
   ];
 
