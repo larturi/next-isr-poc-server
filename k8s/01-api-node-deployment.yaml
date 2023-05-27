@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-node-server-isr
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-node-server-isr
+  template:
+    metadata:
+      labels:
+        app: api-node-server-isr
+    spec:
+      containers:
+      - name: poc-isr-api
+        image: larturi/poc-isr-api:1.0
+        imagePullPolicy: IfNotPresent        
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "200m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
